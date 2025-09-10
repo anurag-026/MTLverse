@@ -1,103 +1,105 @@
-import Image from "next/image";
+import MangaList from '../components/MangaList';
+
+// Sample data - in a real app, this would come from an API
+const sampleMangas = [
+  {
+    id: 1,
+    title: "One Piece",
+    author: "Eiichiro Oda",
+    coverImage: "/images/one-piece.jpg",
+    status: "Ongoing",
+    chapterCount: 1095
+  },
+  {
+    id: 2,
+    title: "Naruto",
+    author: "Masashi Kishimoto",
+    coverImage: "/images/naruto.jpg",
+    status: "Completed",
+    chapterCount: 700
+  },
+  {
+    id: 3,
+    title: "Attack on Titan",
+    author: "Hajime Isayama",
+    coverImage: "/images/aot.jpg",
+    status: "Completed",
+    chapterCount: 139
+  },
+  {
+    id: 4,
+    title: "Demon Slayer",
+    author: "Koyoharu Gotouge",
+    coverImage: "/images/demon-slayer.jpg",
+    status: "Completed",
+    chapterCount: 205
+  },
+  {
+    id: 5,
+    title: "My Hero Academia",
+    author: "Kohei Horikoshi",
+    coverImage: "/images/mha.jpg",
+    status: "Ongoing",
+    chapterCount: 400
+  },
+  {
+    id: 6,
+    title: "Jujutsu Kaisen",
+    author: "Gege Akutami",
+    coverImage: "/images/jjk.jpg",
+    status: "Ongoing",
+    chapterCount: 250
+  }
+];
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+    <div className="container mx-auto px-4 py-8">
+      {/* Hero Section */}
+      <section className="text-center mb-12">
+        <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-4">
+          Welcome to MangaVerse
+        </h1>
+        <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
+          Discover and read thousands of manga titles with the best reading experience
+        </p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/search"
+            className="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
+            Browse Manga
           </a>
           <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/register"
+            className="border border-blue-600 text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
           >
-            Read our docs
+            Get Started
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Featured Manga Section */}
+      <section className="mb-12">
+        <h2 className="text-3xl font-bold text-gray-900 mb-6">Featured Manga</h2>
+        <MangaList mangas={sampleMangas} />
+      </section>
+
+      {/* Popular Genres */}
+      <section className="mb-12">
+        <h2 className="text-3xl font-bold text-gray-900 mb-6">Popular Genres</h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+          {['Action', 'Romance', 'Comedy', 'Drama', 'Fantasy', 'Horror'].map((genre) => (
+            <a
+              key={genre}
+              href={`/search?genre=${genre.toLowerCase()}`}
+              className="bg-gray-100 hover:bg-gray-200 text-gray-800 px-4 py-3 rounded-lg text-center font-medium transition-colors"
+            >
+              {genre}
+            </a>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
