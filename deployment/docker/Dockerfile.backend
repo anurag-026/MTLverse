@@ -1,0 +1,53 @@
+# Multi-stage build for Spring Boot backend
+FROM openjdk:17-jdk-slim as builder
+
+# Set working directory
+WORKDIR /app
+
+# Copy Maven files
+COPY backend/pom.xml .
+COPY backend/mvnw .
+COPY backend/.mvn .mvn
+
+# Download dependencies
+RUN chmod +x mvnw
+RUN ./mvnw dependency:go-offline -B
+
+# Copy source code
+COPY backend/src ./src
+
+# Build application
+RUN ./mvnw clean package -DskipTests
+
+# Production stage
+FROM openjdk:17-jre-slim
+
+# Install necessary packages
+RUN apt-get update && apt-get install -y \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create app user
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+
+# Set working directory
+WORKDIR /app
+
+# Copy built JAR from builder stage
+COPY --from=builder /app/target/*.jar app.jar
+
+# Create logs directory
+RUN mkdir -p /app/logs && chown -R appuser:appuser /app
+
+# Switch to non-root user
+USER appuser
+
+# Expose port
+EXPOSE 8080
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD curl -f http://localhost:8080/api/actuator/health || exit 1
+
+# Run application
+ENTRYPOINT ["java", "-jar", "app.jar"]
